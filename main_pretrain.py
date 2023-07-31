@@ -21,7 +21,9 @@ import torch.backends.cudnn as cudnn
 from torch.utils.tensorboard import SummaryWriter
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
+from torchvision.datasets.folder import default_loader
 from torch.utils.data import ConcatDataset
+from functools import lru_cache
 
 import timm
 
@@ -36,6 +38,7 @@ import models_mae
 from engine_pretrain import train_one_epoch
 from clearml import Task
 
+caching_loader = lru_cache()(default_loader)
 
 def get_args_parser():
     parser = argparse.ArgumentParser('MAE pre-training', add_help=False)
@@ -112,7 +115,7 @@ def main(args):
 
     print('job dir: {}'.format(os.path.dirname(os.path.realpath(__file__))))
     print("{}".format(args).replace(', ', ',\n'))
-    task = Task.init(project_name='mae', task_name='single image')
+    task = Task.init(project_name='mae', task_name='single image ae')
 
     device = torch.device(args.device)
 
@@ -130,7 +133,7 @@ def main(args):
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
-    dataset_train = datasets.ImageFolder(os.path.join(args.data_path, 'train'), transform=transform_train)
+    dataset_train = datasets.ImageFolder(os.path.join(args.data_path, 'train'), transform=transform_train, loader=caching_loader)
     dataset_train = ConcatDataset([dataset_train] * args.data_repeat)
     print(dataset_train)
 
