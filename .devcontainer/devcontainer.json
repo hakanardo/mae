@@ -8,6 +8,7 @@
         }
     },
     "mounts": [
-      "source=${localEnv:HOME},target=${localEnv:HOME},type=bind,consistency=cached"
+      "source=${localEnv:HOME},target=${localEnv:HOME},type=bind,consistency=cached",
+      "source=${localEnv:HOME}/clearml.conf,target=/workspace/home/clearml.conf,type=bind,consistency=cached",
     ]
 }
