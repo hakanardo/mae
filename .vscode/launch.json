@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Pretrain",
+            "type": "python",
+            "request": "launch",
+            "program": "main_pretrain.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            // "args": ["--data_path", "data", "--data_repeat", "4096", "--batch_size", "2", "--model", "mae_vit_base_patch16", "--epochs", "100", "--warmup_epochs", "1"]
+            // "args": ["--data_path", "data", "--data_repeat", "16384", "--batch_size", "64", "--model", "ae_vit_minimal_patch16", "--epochs", "10", "--warmup_epochs", "1"]
+            // "args": ["--data_path", "data_gauss", "--data_repeat", "16384", "--batch_size", "64", "--model", "ae_dec_vit_minimal_patch16", "--epochs", "10", "--warmup_epochs", "1"]
+            "args": ["--data_path", "data_gauss", "--data_repeat", "262144", "--batch_size", "64", "--model", "pd_vit_minimal_patch16", "--epochs", "10", "--warmup_epochs", "1"]
+        },
+
+    ]
+}
